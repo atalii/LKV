@@ -34,3 +34,43 @@ fn otm_default() {
     let c: OTM<(), ()> = OTM::new();
     assert_eq!(c.num_keys(), 0);
 }
+
+#[test]
+fn into_iter_mut() {
+    let mut c: OTM<usize, usize> = OTM::new();
+    c.insert(0, 0);
+    c.insert(1, 1);
+    c.insert(2, 2);
+
+    for i in &mut c {
+        i.1[0] += 1;
+    }
+
+    assert_eq!(c.get(0), &[1]);
+    assert_eq!(c.get(1), &[2]);
+    assert_eq!(c.get(2), &[3]);
+}
+
+#[test]
+fn into_iter_ref() {
+    let mut c: OTM<usize, usize> = OTM::new();
+    c.insert(0, 0);
+    c.insert(1, 1);
+    c.insert(2, 2);
+
+    for i in &c {
+        assert_eq!(i.1, &[i.0]);
+    }
+}
+
+#[test]
+fn into_iter() {
+    let mut c: OTM<usize, usize> = OTM::new();
+    c.insert(0, 0);
+    c.insert(1, 1);
+    c.insert(2, 2);
+
+    for x in c {
+        assert_eq!(x.1, &[x.0])
+    }
+}

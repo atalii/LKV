@@ -122,3 +122,30 @@ impl<K: Eq, V> OTM<K, V> {
         self.inner.len()
     }
 }
+
+impl<'a, K: Eq + 'a, V: 'a> IntoIterator for &'a mut OTM<K, V> {
+    type Item = &'a mut (K, Vec<V>);
+    type IntoIter = std::slice::IterMut<'a, (K, Vec<V>)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.inner.iter_mut()
+    }
+}
+
+impl<'a, K: Eq + 'a, V: 'a> IntoIterator for &'a OTM<K, V> {
+    type Item = &'a (K, Vec<V>);
+    type IntoIter = std::slice::Iter<'a, (K, Vec<V>)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.inner.iter()
+    }
+}
+
+impl<K: Eq, V> IntoIterator for OTM<K, V> {
+    type Item = (K, Vec<V>);
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.inner.into_iter()
+    }
+}
