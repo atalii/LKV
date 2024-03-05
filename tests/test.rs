@@ -28,3 +28,9 @@ fn otm_basics() {
     assert_eq!(c.get(0), &[1, 0]);
     assert_eq!(c.get(1), &[1]);
 }
+
+#[test]
+fn otm_default() {
+    let c: OTM<(), ()> = OTM::new();
+    assert_eq!(c.num_keys(), 0);
+}

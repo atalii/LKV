@@ -12,6 +12,7 @@
 
 /// A one-to-many (OTM) collection stores keys associated with many values.
 /// Values may occur more than once for each key.
+#[derive(Default)]
 pub struct OTM<K: Eq, V> {
     inner: Vec<(K, Vec<V>)>,
 }
