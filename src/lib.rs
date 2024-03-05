@@ -26,7 +26,7 @@ impl<K: Eq, V> OTM<K, V> {
     /// assert_eq!(otm.num_keys(), 0);
     /// ```
     pub fn new() -> Self {
-        Self { inner: Vec::new(), }
+        Self { inner: Vec::new() }
     }
 
     /// Insert a new key-value pair into the collection.
@@ -42,7 +42,7 @@ impl<K: Eq, V> OTM<K, V> {
         for bucket in &mut self.inner {
             if &bucket.0 == &key {
                 bucket.1.push(val);
-                return
+                return;
             }
         }
 
@@ -64,7 +64,7 @@ impl<K: Eq, V> OTM<K, V> {
             }
         }
 
-        return &[];
+        &[]
     }
 
     /// This is identical to [`Self::get`], but it returns a mutable slice.
@@ -83,11 +83,11 @@ impl<K: Eq, V> OTM<K, V> {
     pub fn get_mut(&mut self, key: K) -> &mut [V] {
         for bucket in &mut self.inner {
             if &bucket.0 == &key {
-                return &mut bucket.1
+                return &mut bucket.1;
             }
         }
 
-        return &mut [];
+        &mut []
     }
 
     /// Insert all `vals` into `self` at `key`, including duplicates.
